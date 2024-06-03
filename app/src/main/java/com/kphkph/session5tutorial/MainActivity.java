@@ -103,12 +103,16 @@ public class MainActivity extends AppCompatActivity {
 
         btnSendEmail.setOnClickListener(v -> {
             final String typedString = txtInput.getText().toString();
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-            emailIntent.setData(Uri.parse("mailto:testuser@example.com")); // Only email apps should handle this
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Test Subject");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, typedString);
 
-            startActivity(Intent.createChooser(emailIntent, "Choose an email client:"));
+            Intent intent = new Intent(Intent.ACTION_SEND);
+
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"testuser@example.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Hello World!");
+            intent.putExtra(Intent.EXTRA_TEXT, typedString);
+
+            intent.setType("message/rfc822");
+
+            startActivity(Intent.createChooser(intent, "Choose an Email client :"));
 
         });
 
